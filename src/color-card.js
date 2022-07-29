@@ -1,3 +1,5 @@
+import { Color } from "./color.js";
+
 const template = document.createElement("template");
 template.innerHTML = `
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
@@ -9,17 +11,19 @@ template.innerHTML = `
     </div>
     <style>
         label[for="color-select"] {
-            font-size: 18pt;
+            font-size: 12pt;
         }
         #color-select {
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 35px;
             display: block;
             margin: 1em auto;
+			cursor:pointer;
         }
        .color-card {
+		    border: 1px solid black;
             padding: 1em;
-            width:200px;
+            width:150px;
             position: relative;
             background-color: #eee;
             border-radius: 20px;
@@ -46,12 +50,14 @@ export class ColorCard extends HTMLElement {
 		this._colorInput = this.shadowRoot.querySelector("#color-select");
 		this._colorCard = this.shadowRoot.querySelector(".color-card");
 		this._xButton = this.shadowRoot.querySelector("#delete-card");
+		this._color = new Color(255, 255, 255);
+		this.setColor("#ffffff");
+		console.log("Constructor");
 	}
 
 	connectedCallback() {
 		const hexCode = this.getAttribute("hex-code");
 		if (hexCode) {
-			this._colorInput.value = hexCode;
 			this.setColor(hexCode);
 		}
 		this._colorInput.onchange = _ => {
@@ -62,15 +68,21 @@ export class ColorCard extends HTMLElement {
 
 	// sets the values of _r,_g, and _b and adjusts the color of the card
 	setColor(hexCode) {
+		this._colorInput.value = hexCode;
 		let hexValue = parseInt(hexCode.substring(1), 16);
-		this._b = hexValue % 0x100;
+		this._color.b = hexValue % 0x100;
 		hexValue >>= 8;
-		this._g = hexValue % 0x100;
-		this._r = hexValue >> 8;
+		this._color.g = hexValue % 0x100;
+		this._color.r = hexValue >> 8;
 
 		const lightness = 0.5;
-		this._colorCard.style.backgroundColor = `rgb(${Math.round(this._r * (1 - lightness) + 255 * lightness)}, ${Math.round(this._g * (1 - lightness) + 255 * lightness)}, ${Math.round(this._b * (1 - lightness) + 255 * lightness)})`;
-		console.log(`${hexCode} = rgb(${this._r}, ${this._g}, ${this._b})`);
+		this._colorCard.style.backgroundColor = `rgb(${Math.round(this._color.r * (1 - lightness) + 255 * lightness)}, 
+													 ${Math.round(this._color.g * (1 - lightness) + 255 * lightness)}, 
+													 ${Math.round(this._color.b * (1 - lightness) + 255 * lightness)})`;
+	}
+
+	getColor() {
+		return this._color;
 	}
 
 	//unbinds the navbar visibility toggle to the click event of the burger icon

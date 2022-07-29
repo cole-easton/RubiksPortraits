@@ -21,6 +21,24 @@ header h1 {
     margin-top: 0;
 }
 
+button {
+    border: 1px solid black;
+    border-radius: 6px;
+    padding: 1em 1.5em;
+    background-color: #3af;
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(120%);
+}
+
+button:active {
+    filter: brightness(110%);
+}
+
 #accent-line {
     border-top: 1px solid black;
     border-bottom: 1px solid black;
@@ -39,13 +57,6 @@ img {
     display: none;
 }
 
-button {
-    background-color: #3af;
-    color: white;
-    padding: 1em;
-    border: 1px solid black;
-}
-
 .flex-row {
     display: flex;
     flex-direction: row;
@@ -54,6 +65,25 @@ button {
 }
 
 .flex-row>div{
-    width: 700px;
-    border:3px solid red;
+    width: 650px;
+}
+
+.input-field {
+    margin-bottom: 1.5em;
+}
+
+#color-card-area {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #eee;
+    padding: 20px;
+    margin-bottom: 1em;
+    border: 1px solid black;
+}
+
+color-card {
+    margin: 1em;
 }

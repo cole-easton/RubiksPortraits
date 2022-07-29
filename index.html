@@ -28,14 +28,22 @@
             </div>
             <div id="controls">
                 <div class="input-field">
-                    <label for="icubie-width">Cubies Wide</label>
+                    <label for="cubie-width">Cubies Wide</label>
                     <input id="cubie-width" type="number" value="30">
                 </div>
                 <div class="input-field">
                     <label for="sticker-size">Sticker Size</label>
-                    <input id="sticker size" type="range" min="0" max="1" value="0.9" step="0.005">
+                    <input id="sticker-size" type="range" min="0" max="1" value="0.9" step="0.005">
                 </div>
-                <color-card hex-code = "#ff0000"></color-card>
+                <div id="color-card-area">
+                    <color-card hex-code="#ffffff"></color-card>
+                    <color-card hex-code="#00ff00"></color-card>
+                    <color-card hex-code="#ff0000"></color-card>
+                    <color-card hex-code="#0000ff"></color-card>
+                    <color-card hex-code="#ff8800"></color-card>
+                    <color-card hex-code="#ffff00"></color-card>
+                </div>
+                <button id = "add-card">Add Card</button>
             </div>
         </div>
     </main>

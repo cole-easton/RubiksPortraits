@@ -1,4 +1,5 @@
 import { ColorCard } from "./color-card.js";
+import { Color } from './color.js';
 
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -33,8 +34,8 @@ document.querySelector("#image-upload").onchange = e => {
 			const bricksTall = Math.floor(bricksWide * canvas.height / canvas.width);
 			canvas.height = bricksTall * pixelsPerBrick;
 
-			const colors = [new Color(255, 255, 255), new Color(255, 255, 0), new Color(255, 0, 0), new Color(255, 140, 30), new Color(100, 255, 0), new Color(20, 70, 255)];
-			colors.sort((c1, c2) => c1.squareBrightness() - c2.squareBrightness()); //ascending order of brightness
+			const colors = Array.from(document.querySelectorAll("color-card")).map(colorCard => colorCard.getColor());
+			colors.sort((c1, c2) => c1.brightness() - c2.brightness()); //ascending order of brightness
 			const brightnesses = [];
 			for (let brickX = 0; brickX < bricksWide; brickX++) {
 				for (let brickY = 0; brickY < bricksTall; brickY++) {
@@ -45,7 +46,7 @@ document.querySelector("#image-upload").onchange = e => {
 						for (let y = pixelsPerBrick * brickY; y < yEnd; y++) {
 							let i = (y * width + x) * 4;
 							let red = data[i], green = data[i + 1], blue = data[i + 2];
-							cumulativeBrightness += new Color(red, green, blue).squareBrightness();
+							cumulativeBrightness += new Color(red, green, blue).brightness();
 						}
 					}
 					cumulativeBrightness = cumulativeBrightness / (pixelsPerBrick * pixelsPerBrick);
@@ -70,8 +71,8 @@ document.querySelector("#image-upload").onchange = e => {
 						color = colors[colors.length - 1];
 					}
 					else {
-						const t = (Math.sqrt(brightness) - Math.sqrt(colors[indexOfFirstBrighterColor - 1].squareBrightness()))
-							/ (Math.sqrt(colors[indexOfFirstBrighterColor].squareBrightness()) - Math.sqrt(colors[indexOfFirstBrighterColor - 1].squareBrightness()));
+						const t = (Math.sqrt(brightness) - Math.sqrt(colors[indexOfFirstBrighterColor - 1].brightness()))
+							/ (Math.sqrt(colors[indexOfFirstBrighterColor].brightness()) - Math.sqrt(colors[indexOfFirstBrighterColor - 1].brightness()));
 						if (Math.random() < t)
 							color = colors[indexOfFirstBrighterColor];
 						else
@@ -91,16 +92,8 @@ document.querySelector("#image-upload").onchange = e => {
 	}
 }
 
-class Color {
-	constructor(r, g, b) {
-		this.r = r;
-		this.g = g;
-		this.b = b;
-	}
-	squareBrightness() {
-		return 0.299 * this.r * this.r + 0.587 * this.g * this.g + 0.114 * this.b * this.b
-	}
-	getCSSColor() {
-		return `rgb(${this.r},${this.g},${this.b})`;
-	}
-}
+document.querySelector("#add-card").onclick = _ => {
+	const newCard = document.createElement("color-card");
+	newCard.setColor("#888888");
+	document.querySelector("#color-card-area").appendChild(newCard);
+};
