@@ -76,9 +76,9 @@ export class ColorCard extends HTMLElement {
 		this._color.r = hexValue >> 8;
 
 		const lightness = 0.5;
-		this._colorCard.style.backgroundColor = `rgb(${Math.round(this._color.r * (1 - lightness) + 255 * lightness)}, 
-													 ${Math.round(this._color.g * (1 - lightness) + 255 * lightness)}, 
-													 ${Math.round(this._color.b * (1 - lightness) + 255 * lightness)})`;
+		this._colorCard.style.backgroundColor = `rgb(${Math.round(Math.sqrt(this._color.r*this._color.r * (1 - lightness) + 0x10000 * lightness))}, 
+													 ${Math.round(Math.sqrt(this._color.g*this._color.g * (1 - lightness) + 0x10000 * lightness))}, 
+													 ${Math.round(Math.sqrt(this._color.b*this._color.b * (1 - lightness) + 0x10000 * lightness))})`;
 	}
 
 	getColor() {
