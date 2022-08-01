@@ -60,10 +60,15 @@ export class ColorCard extends HTMLElement {
 		if (hexCode) {
 			this.setColor(hexCode);
 		}
+		const colorChange = new Event("colorChange");
 		this._colorInput.onchange = _ => {
 			this.setColor(this._colorInput.value);
+			this.dispatchEvent(colorChange);
 		}
-		this._xButton.onclick = _ => this.remove();
+		this._xButton.onclick = _ => {
+			this.remove();
+			this.dispatchEvent(colorChange);
+		}	
 	}
 
 	// sets the values of _r,_g, and _b and adjusts the color of the card
