@@ -37,6 +37,24 @@ template.innerHTML = `
            user-select: none;
            cursor: pointer;
        }
+
+	   @media only screen and (max-width: 600px) {
+		label[for="color-select"] {
+			font-size: 8pt;
+		}
+		.color-card {
+			width: 100px;
+			border-radius: 12px;
+			padding: 0.5em;
+		}
+		#delete-card {
+			font-size: 24pt;
+		}
+
+		#color-select {
+			margin: 0.5em auto;
+		}
+	}
     </style>
 </div>
 </nav>
