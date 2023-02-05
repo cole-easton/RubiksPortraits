@@ -149,9 +149,14 @@ footer {
     background-image: url("../icons/youtube.svg");
 }
 
+#github-link {
+    background-image: url("../icons/github.svg");
+}
+
 #icons a {
     display: inline-block;
     width: 50px;
     height: 50px;
     margin: 0 15px;
+    background-repeat: no-repeat;
 }
